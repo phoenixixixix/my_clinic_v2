@@ -8,6 +8,8 @@ class Appointment < ApplicationRecord
 
   after_update :close_with_conclusion
 
+  scope :by_user, ->(user) { where(patient: user).or(where(doctor: user)) }
+
   private
 
   def close_with_conclusion

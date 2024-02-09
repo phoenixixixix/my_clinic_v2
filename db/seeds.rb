@@ -7,3 +7,26 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+patient = Patient.create!(
+  phone: "0990099900",
+  password: "welcome",
+  password_confirmation: "welcome",
+  full_name: "Jack F"
+)
+
+3.times do |i|
+  Doctor.create!(
+    phone: "077007770#{i}",
+    password: "welcome",
+    password_confirmation: "welcome",
+    full_name: Faker::Name.name_with_middle
+  )
+end
+
+10.times do
+  Appointment.create!(
+    patient_id: patient.id,
+    doctor_id: Doctor.ids.sample
+  )
+end
