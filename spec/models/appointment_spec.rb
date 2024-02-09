@@ -20,4 +20,22 @@ RSpec.describe Appointment, type: :model do
       expect(subject.doctor).to eq(doctor)
     end
   end
+
+  describe "status" do
+    it "active when conclusion not present)" do
+      appointment = create(:appointment)
+
+      appointment.update(conclusion: "")
+
+      expect(appointment.active?).to be_truthy
+    end
+
+    it "changes to closed when conclusion present" do
+      appointment = create(:appointment)
+
+      appointment.update(conclusion: "You alright")
+
+      expect(appointment.closed?).to be_truthy
+    end
+  end
 end
