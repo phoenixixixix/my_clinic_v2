@@ -38,4 +38,20 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.closed?).to be_truthy
     end
   end
+
+  describe "validation" do
+    describe "appointments limit for 1 doctor" do
+      it "fails to create new appointment for doctor with 10 appointments" do
+        doctor = create(:doctor)
+        10.times{ create(:appointment, doctor: doctor) }
+        doctor.reload # sync counter cache value
+
+        appointment_11 = build(:appointment, doctor: doctor)
+        appointment_11.save
+
+        expect(appointment_11).to be_invalid
+        expect(appointment_11.errors.full_messages).to include("This doctor reached limit of active appointments (10)")
+      end
+    end
+  end
 end
