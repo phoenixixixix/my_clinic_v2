@@ -15,10 +15,10 @@ class User < ApplicationRecord
   end
 
   def patient?
-    type == "patient"
+    type == "Patient"
   end
 
   def doctor?
-    type == "doctor"
+    type == "Doctor"
   end
 end
