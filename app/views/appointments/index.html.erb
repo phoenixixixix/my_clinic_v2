@@ -7,17 +7,19 @@
       <th></th>
       <th>Doctor</th>
       <th>Status</th>
-      <th>Date</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
 
-    <% @appointments.each do |appointment| %>
+    <% @appointments.each.with_index(1) do |appointment, i| %>
       <tr>
-        <th><%= appointment.id %></th>
+        <th><%= i %></th>
         <td><%= appointment.doctor.full_name %></td>
         <td><%= appointment.status %></td>
-        <td><%= appointment.created_at %></td>
+        <% if current_user.doctor? && appointment.active? %>
+          <td><%= link_to "add conclusion", edit_appointment_path(appointment), class: "btn btn-accent btn-sm" %></td>
+        <% end %>
       </tr>
     <% end %>
     </tbody>

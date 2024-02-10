@@ -5,10 +5,6 @@ class AppointmentsController < ApplicationController
     @appointments = Appointment.by_user(current_user).includes(:patient, :doctor)
   end
 
-  def new
-    @appointment = Appointment.new
-  end
-
   def create
     @appointment = Appointment.new(appointment_params)
     @appointment.patient_id = current_user.id
@@ -24,7 +20,7 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    if @appointment.update(blog_params)
+    if @appointment.update(appointment_params)
       redirect_to root_path, notice: "Appointment updated!"
     else
       render :edit, status: :unprocessable_entity

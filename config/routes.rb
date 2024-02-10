@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :appointments, except: :destroy
+  resources :appointments, except: %i(destroy new)
   resources :doctors, only: :index
 
   root "appointments#index"

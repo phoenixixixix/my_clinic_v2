@@ -15,6 +15,13 @@ patient = Patient.create!(
   full_name: "Jack F"
 )
 
+Doctor.create!(
+  phone: "1234567890",
+  password: "welcome",
+  password_confirmation: "welcome",
+  full_name: Faker::Name.name_with_middle
+)
+
 3.times do |i|
   Doctor.create!(
     phone: "077007770#{i}",

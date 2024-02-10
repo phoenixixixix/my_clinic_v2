@@ -6,7 +6,7 @@ class Appointment < ApplicationRecord
 
   validate :appointments_count_for_doctor
 
-  after_update :close_with_conclusion
+  before_update :close_with_conclusion
 
   scope :by_user, ->(user) { where(patient: user).or(where(doctor: user)) }
 
