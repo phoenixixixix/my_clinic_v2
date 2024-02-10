@@ -11,11 +11,12 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
+    @appointment.patient_id = current_user.id
 
     if @appointment.save
       redirect_to root_path, notice: "Appointment created!"
     else
-      render :new, status: :unprocessable_entity
+      redirect_to doctors_path, alert: "Can't book appointment: #{@appointment.errors.full_messages.join(", ")}"
     end
   end
 
@@ -33,7 +34,7 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:conclusion)
+    params.require(:appointment).permit(:doctor_id, :conclusion)
   end
 
   def set_appointment

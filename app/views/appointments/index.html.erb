@@ -12,9 +12,9 @@
     </thead>
     <tbody>
 
-    <% @appointments.each_with_index do |appointment, i| %>
+    <% @appointments.each do |appointment| %>
       <tr>
-        <th><%= i %></th>
+        <th><%= appointment.id %></th>
         <td><%= appointment.doctor.full_name %></td>
         <td><%= appointment.status %></td>
         <td><%= appointment.created_at %></td>

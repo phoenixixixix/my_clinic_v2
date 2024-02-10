@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :appointments, except: :destroy
+  resources :doctors, only: :index
 
   root "appointments#index"
 end
