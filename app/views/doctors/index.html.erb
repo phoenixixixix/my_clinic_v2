@@ -15,7 +15,11 @@
       <tr>
         <td><%= doctor.full_name %></td>
         <td><%= doctor.appointments.size %></td>
-        <td><%= link_to "book", appointments_path(appointment: { doctor_id: doctor.id } ), data: { turbo_method: :post }, class: "btn btn-sm" %></td>
+        <td><%= link_to "book",
+                        appointments_path(appointment: { doctor_id: doctor.id } ),
+                        data: { turbo_method: :post },
+                        class: "btn btn-accent btn-sm" %>
+        </td>
       </tr>
     <% end %>
     </tbody>
