@@ -1,4 +1,18 @@
-<h1 class="font-bold text-5xl mb-16">Doctors List</h1>
+<div class="flex w-full mb-16">
+<h1 class="font-bold text-5xl">Doctors List</h1>
+
+  <details class="dropdown mx-auto self-end">
+    <summary class="btn btn-sm">Show: <%= @category ? @category.title : "All" %></summary>
+
+    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+      <li><%= link_to "All Doctors", doctors_path %></li>
+      Other:
+      <% Category.pluck(:title, :id).each do |title, id| %>
+        <li><%= link_to title, doctors_path(category: id) %></li>
+      <% end %>
+    </ul>
+  </details>
+</div>
 
 <div class="overflow-x-auto">
   <table class="table">
