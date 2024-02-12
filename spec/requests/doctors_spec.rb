@@ -2,6 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "Doctors", type: :request do
   describe "GET /index" do
-    pending "add some examples (or delete) #{__FILE__}"
+    it "displays doctors list ordered by full_name ascending" do
+      sign_in create(:patient)
+
+      get "/doctors"
+
+      binding.irb
+
+      expect(response.body).to include("Doctors")
+    end
   end
 end
