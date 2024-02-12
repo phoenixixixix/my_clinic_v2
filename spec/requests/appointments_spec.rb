@@ -60,6 +60,28 @@ RSpec.describe "Appointments", type: :request do
         }.to change { Appointment.count }.by(0)
       end
     end
+
+    context "when doctor signed in" do
+      let(:doctor) { create(:doctor) }
+
+      before do
+        sign_in doctor
+      end
+
+      it "doesn't create record" do
+        expect {
+          post "/appointments", params: { appointment: { doctor_id: "1234" }  }
+        }.to change { Appointment.count }.by(0)
+      end
+
+      it "redirects with alert" do
+        post "/appointments", params: { appointment: { doctor_id: "1234" }  }
+
+        expect(response).to redirect_to(root_path)
+        follow_redirect!
+        expect(response.body).to include("You are not authorized to perform this task")
+      end
+    end
   end
 
   describe "PATCH /update" do
@@ -74,7 +96,33 @@ RSpec.describe "Appointments", type: :request do
       patch appointment_path(appointment), params: { appointment: { conclusion: "Added" } }
 
       appointment.reload
+      expect(appointment.conclusion).to be_present
       expect(appointment.status).to eq("closed")
+    end
+
+    context "when patient signed in" do
+      let(:patient) { create(:patient) }
+
+      before do
+        sign_in patient
+      end
+
+      it "doesn't update the Appointment" do
+        old_conclusion = ""
+        target_appointment = create(:appointment, patient: patient, conclusion: old_conclusion )
+
+        patch appointment_path(target_appointment), params: { appointment: { conclusion: "New Conclusion" } }
+
+        expect(target_appointment.conclusion).to eq(old_conclusion)
+      end
+
+      it "redirects with alert" do
+        patch appointment_path(appointment), params: { appointment: { conclusion: "Conclusion" } }
+
+        expect(response).to redirect_to(root_path)
+        follow_redirect!
+        expect(response.body).to include("You are not authorized to perform this task")
+      end
     end
   end
 end
