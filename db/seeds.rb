@@ -15,10 +15,17 @@ patient = Patient.create!(
   full_name: "Jack F"
 )
 
+5.times do
+  Category.create!(
+    title: Faker::Fantasy::Tolkien.character
+  )
+end
+
 Doctor.create!(
   phone: "1234567890",
   password: "welcome",
   password_confirmation: "welcome",
+  category_id: Category.last.id,
   full_name: Faker::Name.name_with_middle
 )
 
@@ -27,6 +34,7 @@ Doctor.create!(
     phone: "077007770#{i}",
     password: "welcome",
     password_confirmation: "welcome",
+    category_id: Category.ids.sample,
     full_name: Faker::Name.name_with_middle
   )
 end

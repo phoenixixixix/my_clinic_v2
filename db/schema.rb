@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_12_221838) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_12_222401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_221838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_users_on_category_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

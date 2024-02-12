@@ -3,5 +3,6 @@ FactoryBot.define do
     phone { Faker::PhoneNumber.phone_number }
     full_name { "Dany Doctor" }
     password { "welcome" }
+    category
   end
 end

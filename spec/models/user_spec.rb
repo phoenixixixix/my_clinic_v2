@@ -4,17 +4,17 @@ RSpec.describe User, type: :model do
   describe "type" do
     describe "Patient" do
       it "creates new Patient under user table" do
-        last_patient = Patient.create(attributes_for(:user))
+        create(:patient)
 
-        expect(User.last).to eq(last_patient)
+        expect(User.last.type).to eq("Patient")
       end
     end
 
     describe "Doctor" do
-      it "creates new Patient under user table" do
-        last_doc = Doctor.create(attributes_for(:user))
+      it "creates new Doctor under user table" do
+        create(:doctor)
 
-        expect(User.last).to eq(last_doc)
+        expect(User.last.type).to eq("Doctor")
       end
     end
   end
