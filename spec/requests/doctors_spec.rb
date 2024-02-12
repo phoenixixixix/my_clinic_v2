@@ -7,8 +7,6 @@ RSpec.describe "Doctors", type: :request do
 
       get "/doctors"
 
-      binding.irb
-
       expect(response.body).to include("Doctors")
     end
   end
