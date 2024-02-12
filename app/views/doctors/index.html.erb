@@ -14,7 +14,7 @@
     <% @doctors.each do |doctor| %>
       <tr>
         <td><%= doctor.full_name %></td>
-        <td><%= doctor.appointments.size %></td>
+        <td><%= doctor.appointments.active.size %></td>
         <td><%= link_to "book",
                         appointments_path(appointment: { doctor_id: doctor.id } ),
                         data: { turbo_method: :post },

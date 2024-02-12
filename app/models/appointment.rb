@@ -1,6 +1,6 @@
 class Appointment < ApplicationRecord
   belongs_to :patient
-  belongs_to :doctor, counter_cache: true
+  belongs_to :doctor
 
   enum status: { active: 0, closed: 1 }
 
@@ -17,7 +17,7 @@ class Appointment < ApplicationRecord
   end
 
   def appointments_count_for_doctor
-    if doctor.appointments.size == 10
+    if doctor.appointments.active.size == 10
       errors.add(:base, :to_much, message: "This doctor reached limit of active appointments (10)")
     end
   end
