@@ -9,33 +9,33 @@
 #   end
 
 patient = Patient.create!(
-  phone: "0990099900",
-  password: "welcome",
-  password_confirmation: "welcome",
-  full_name: "Jack F"
+  phone: '0990099900',
+  password: 'welcome',
+  password_confirmation: 'welcome',
+  full_name: 'Jack F'
 )
 
-5.times do
+3.times do |i|
   Category.create!(
-    title: Faker::Fantasy::Tolkien.character
+    title: "Category #{i}"
   )
 end
 
 Doctor.create!(
-  phone: "1234567890",
-  password: "welcome",
-  password_confirmation: "welcome",
+  phone: '1234567890',
+  password: 'welcome',
+  password_confirmation: 'welcome',
   category_id: Category.last.id,
-  full_name: Faker::Name.name_with_middle
+  full_name: 'John Jones'
 )
 
 3.times do |i|
   Doctor.create!(
-    phone: "077007770#{i}",
-    password: "welcome",
-    password_confirmation: "welcome",
+    phone: "077007770#{rand(1000)}",
+    password: 'welcome',
+    password_confirmation: 'welcome',
     category_id: Category.ids.sample,
-    full_name: Faker::Name.name_with_middle
+    full_name: "Lary Newman#{i}"
   )
 end
 
